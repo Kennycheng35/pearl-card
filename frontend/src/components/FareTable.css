@@ -1,0 +1,77 @@
+.results-container {
+  background-color: #D3C9B0;
+  padding: 1rem;
+  padding-bottom: .3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 2rem auto;
+  margin-bottom:1rem;
+  border-radius: 6px;
+
+}
+
+.results-title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.filter-container {
+  margin-bottom: 1.5rem;
+}
+
+.filter-input {
+  width: 90%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.fares-table {
+  max-height: 300px; 
+  overflow-y: auto;  
+}
+
+.results-table {
+  table-layout: fixed;
+  position: sticky;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.results-table th,
+.results-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #D2BD89;
+  text-align: center;
+}
+
+.results-table th {
+  background-color: #bdb6a3;
+  font-weight: 600;
+  color: #181d24;
+}
+
+.total-fare {
+  text-align: right;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.results-table th {
+  cursor: pointer;
+  user-select: none; 
+}
+
+.results-table th:hover {
+  background-color: #6a6c74;
+}
