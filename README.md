@@ -3,6 +3,8 @@ App created to track the total fare of a list of trips
 
 # Install Instructions
 ***You must have Docker installed and running beforehand***
+
+***.env file is included for simpler install and set up***
 1. Clone repo
 2. In the root directory, where the docker-compose.yml file is, run these following commands
 3. run `docker compose down`
