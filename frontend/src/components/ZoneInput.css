@@ -1,0 +1,24 @@
+.zoneInput {
+    margin:10px;
+    padding:10px;
+    padding-inline:50px;
+    /* padding-top: 100px; */
+}
+
+.zoneLabel {
+    margin-right: 50px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: .8em;
+}
+
+.inputRow {
+    margin-bottom:30px;
+}
+
+.dropdown {
+  padding: 12px 15px; 
+  font-size: 1.2em; 
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  min-width: 230px;
+}
