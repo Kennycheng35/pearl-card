@@ -11,13 +11,13 @@ def test_get_single_fare_from_db(mocker, client):
     mock_FareRule.query.filter_by.return_value.first.return_value = mock_rule
 
     service = FareService()
-    fare = service._get_single_fare(from_zone=1, to_zone=2)
+    fare = service.get_single_fare(from_zone=1, to_zone=2)
     
     assert fare == 55
 
 
 def test_calculate_fares_endpoint(client, mocker):
-    mocker.patch('api.services.fare_service.FareService._get_single_fare', return_value=55)
+    mocker.patch('api.services.fare_service.FareService.get_single_fare', return_value=55)
     
     response = client.post('/calculate-fares', json={
         "journeys": [
