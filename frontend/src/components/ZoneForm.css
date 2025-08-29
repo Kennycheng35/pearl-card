@@ -26,6 +26,11 @@
 
 }
 
+.form-button:disabled {
+    background-color: #c2c4ca;
+    color: #111111;
+}
+
 .button-container {
     margin-top:10px;
 }
