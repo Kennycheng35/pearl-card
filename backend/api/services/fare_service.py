@@ -1,5 +1,5 @@
 import json
-from ..models import FareRule, Zone
+from ..models.models import FareRule, Zone
 from ..extensions import redis_client
 
 # Service that interacts with the Fare Database and Fare Cache 
