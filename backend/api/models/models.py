@@ -1,4 +1,4 @@
-from .extensions import db
+from ..extensions import db
 
 class FareRule(db.Model):
     __tablename__ = 'fare_rules'
