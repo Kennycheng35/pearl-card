@@ -1,5 +1,5 @@
 .header {
-  background-color: hsl(42, 24%, 84%);
+  background-color: #D9E7F5;
   padding: 0 3rem;
   border-bottom: 3px solid #000000;
   
@@ -15,6 +15,7 @@
 
 .navigation a {
   color: #000000;
+  /* color: #F5ECD9; */
   text-decoration: none;
   margin-left: 20px;
   font-size: 1.1rem;
@@ -30,6 +31,7 @@
   font-size: 2rem;
   font-weight: 900;
   color: #1f2937;
+  /* color: #F5ECD9; */
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 

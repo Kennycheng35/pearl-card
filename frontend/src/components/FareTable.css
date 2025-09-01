@@ -1,5 +1,5 @@
 .results-container {
-  background-color: #D3C9B0;
+  background-color: #eae6dc;
   padding: 1rem;
   padding-bottom: .3rem;
   border-radius: 8px;
@@ -49,14 +49,17 @@
 .results-table th,
 .results-table td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #D2BD89;
+  border-bottom: 1px solid #253D2C;
   text-align: center;
 }
 
 .results-table th {
-  background-color: #bdb6a3;
+  /* background-color: #bdb6a3; */
+  /* background-color: #253D2C; */
+  background-color: #C8D8EA;
   font-weight: 600;
   color: #181d24;
+  /* color: #F5ECD9; */
 }
 
 .total-fare {
