@@ -43,6 +43,19 @@ const ZoneInput = ({ journey, zones, onJourneyChange, onRemoveJourney, isRemoveD
                 </select>
             </span>
 
+            <span className='zoneInput'>
+                <label htmlFor={`date-${journey.id}`} className='zoneLabel'>Date</label>
+                <input
+                    className='dateInput'
+                    type='text'
+                    id={`date-${journey.id}`}
+                    name='date'
+                    value={journey.date || ''}
+                    onChange={(e) => onJourneyChange(journey.id, e)}                    
+                >
+                </input>
+            </span>
+
             <span>
                 <button
                     type="button"

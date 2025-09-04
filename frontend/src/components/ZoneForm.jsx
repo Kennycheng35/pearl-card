@@ -15,23 +15,29 @@ const ZoneForm = () => {
 
     const handleJourneyChange = (id, event) => {
         const { name, value } = event.target; 
-        
-        const selectedZoneId = parseInt(value);
-
-        const selectedZoneObject = zones.find(zone => zone.id === selectedZoneId);
 
         const newJourneys = journeys.map(journey => {
             if (journey.id === id) {
-                return { ...journey, [name]: selectedZoneObject };
+                
+                if (name === 'date') {
+                    return { ...journey, date: value };
+                } 
+                else {
+                    const selectedZoneId = parseInt(value);
+                    const selectedZoneObject = zones.find(zone => zone.id === selectedZoneId);
+                    return { ...journey, [name]: selectedZoneObject };
+                }
             }
             return journey;
         });
+
+        console.log(newJourneys);
         setJourneys(newJourneys);
     };
 
 
     const handleAddJourney = () => {
-        setJourneys([...journeys, { id: Date.now(), fromZone: zones[0], toZone: zones[0] }]);
+        setJourneys([...journeys, { id: Date.now(), fromZone: zones[0], toZone: zones[0], date: new Date().toLocaleDateString() }]);
         console.log(journeys)
     };
 
@@ -44,6 +50,7 @@ const ZoneForm = () => {
         const payload = {journeys: journeys.map((journey) => {
             console.log('tozone', journey.toZone)
             return {
+                "date": journey.date,
                 "from_zone": journey.fromZone.id,
                 "to_zone": journey.toZone.id
             }
@@ -61,7 +68,7 @@ const ZoneForm = () => {
     }
 
     const handleRestart = async () => {
-        setJourneys([{id: Date.now(), fromZone: zones[0], toZone: zones[0] }])
+        setJourneys([{id: Date.now(), fromZone: zones[0], toZone: zones[0], date: new Date().toLocaleDateString() }])
     }
 
     useEffect(() => {
@@ -69,7 +76,7 @@ const ZoneForm = () => {
             const zoneData = await getZones();
             console.log(zoneData);
             setZones(zoneData);
-            setJourneys([...journeys, { id: Date.now(), fromZone: zoneData[0], toZone: zoneData[0] }])
+            setJourneys([...journeys, { id: Date.now(), fromZone: zoneData[0], toZone: zoneData[0], date: new Date().toLocaleDateString() }])
         }
 
         fetchZone();

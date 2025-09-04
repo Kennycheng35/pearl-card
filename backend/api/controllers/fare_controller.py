@@ -1,5 +1,9 @@
 from flask import Blueprint, request, jsonify
 from ..services.fare_service import FareService
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 fare_api_blueprint = Blueprint('fare_api', __name__)
 
@@ -12,7 +16,13 @@ def calculate_fares():
         data = request.get_json()
         journeys = data.get('journeys', [])
 
-        result = fare_service.calculate_daily_fare(journeys)
+        cap = fare_service.get_cap()
+        logging.info('cap')
+        logging.info(cap)
+
+        result = fare_service.calculate_daily_fare(journeys, cap)
+        logging.info(result)
+
         return jsonify(result)
 
     except Exception as e:

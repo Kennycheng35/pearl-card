@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS fare_rules;
 DROP TABLE IF EXISTS zones;
+DROP TABLE IF EXISTS cap;
 
 
 CREATE TABLE zones (
@@ -13,6 +14,11 @@ CREATE TABLE fare_rules (
     to_zone_id INTEGER NOT NULL REFERENCES zones(id),
     fare INTEGER NOT NULL,
     CONSTRAINT from_to_zone_uc UNIQUE (from_zone_id, to_zone_id)
+);
+
+CREATE TABLE cap (
+    id SERIAL PRIMARY KEY,
+    max_cap INTEGER
 );
 
 
@@ -29,4 +35,7 @@ INSERT INTO fare_rules (from_zone_id, to_zone_id, fare) VALUES
     (2, 2, 35),
     (2, 3, 45),
     (3, 3, 30);
+
+INSERT INTO cap (max_cap) VALUES
+    (150);
 

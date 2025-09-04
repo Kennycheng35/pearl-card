@@ -1,6 +1,13 @@
+from collections import defaultdict
 import json
-from ..models.models import FareRule, Zone
+from ..models.models import FareRule, Zone, Cap
 from ..extensions import redis_client
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+MAX_CAP = 150
+
 
 # Service that interacts with the Fare Database and Fare Cache 
 # and returns the total amount of fares for an array of trips
@@ -24,6 +31,21 @@ class FareService:
             redis_client.setex(cache_key, 86400, json.dumps(zones_list))
 
         return zones_list if zones else []        
+    
+    def get_cap(self) -> int:
+
+        cache_key = "cap"
+        cached_cap = redis_client.get(cache_key)
+
+        if cached_cap is not None:
+            return int(cached_cap)
+        
+        cap = Cap.query.first()
+
+        if cap:
+            redis_client.setex(cache_key, 86400, cap.max_cap)
+        
+        return int(cap.max_cap)
 
     def get_single_fare(self, from_zone: int, to_zone: int) -> int:
 
@@ -45,24 +67,40 @@ class FareService:
 
     #Function to calculate the total fare for an array of trips
     #Goes through the array and then records and updates the total
-    def calculate_daily_fare(self, journeys: list[dict]) -> dict:
-            total_daily_fare = 0
-            processed_journeys = []
+    def calculate_daily_fare(self, journeys: list[dict], max_daily_cap = MAX_CAP) -> dict:
 
-            for i, journey in enumerate(journeys):
+        journeys_by_date = defaultdict(list)
+
+        for journey in journeys:
+            journeys_by_date[journey.get('date')].append(journey)
+        
+        total_daily_fare = 0
+        processed_journeys = []
+
+        for date, daily_journeys in journeys_by_date.items():
+            total_fare = 0
+
+            for journey in daily_journeys:
                 from_zone = int(journey.get('from_zone'))
                 to_zone = int(journey.get('to_zone'))
                 fare = self.get_single_fare(from_zone, to_zone)
-                total_daily_fare += fare
+
+                remaining_headroom = max(0, max_daily_cap - total_fare)
+                fare_to_charge = min(fare, remaining_headroom)
+
+                total_fare += fare_to_charge
+
                 processed_journeys.append({
-                    "id": i + 1,
+                    "date": date,
                     "from_zone": from_zone,
                     "to_zone": to_zone,
-                    "fare": fare,
+                    "fare": fare_to_charge,
                 })
+            
+            total_daily_fare += total_fare
 
-            return {
-                "processed_journeys": processed_journeys,
-                "total_daily_fare": total_daily_fare,
-            }
+        return {
+            "processed_journeys": processed_journeys,
+            "total_daily_fare": total_daily_fare,
+        }
     
