@@ -87,6 +87,7 @@ const FareTable = ({fares}) => {
                         <tr>
                             <th onClick={() => requestSort('from_zone')}>From Zone ↕</th>
                             <th onClick={() => requestSort('to_zone')}>To Zone ↕</th>
+                            <th onClick={() => requestSort('date')}>Date ↕</th>
                             <th onClick={() => requestSort('fare')}>Fare ↕</th>
                         </tr>
                         </thead>
@@ -95,6 +96,7 @@ const FareTable = ({fares}) => {
                             <tr key={journey.id}>
                             <td>{journey.from_zone}</td>
                             <td>{journey.to_zone}</td>
+                            <td>{journey.date}</td>
                             <td>{journey.fare}</td>
                             </tr>
                         ))}

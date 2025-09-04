@@ -18,3 +18,10 @@ class Zone(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     zone_description = db.Column(db.Text, nullable=True)
+
+class Cap(db.Model):
+    __tablename__ = 'cap'
+
+    id = db.Column(db.Integer, primary_key=True)    
+    max_cap = db.Column(db.Integer)
+
